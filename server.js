@@ -1,17 +1,22 @@
+//express
 const express = require('express');
+//routes
 const apiRoute = require('./routes/apiRoutes');
 const htmlRoute = require('./routes/htmlRoutes');
 
-
-//app and port
-const app = express();
-//server is shared between multiple applications, 3001 is most likely already taken on Heroku. Need Port to be set like this so it works locally and on Heroku
+//process.env is for Heroku development
 const PORT = process.env.PORT || 3001;
 
-//body parsing, static, route middleware
+//app 
+const app = express();
+
+//middleware 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//css
 app.use(express.static('public'));
+
 app.use('/api', apiRoute);
 app.use('/', htmlRoute);
 
